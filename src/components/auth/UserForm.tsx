@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { GlassCard } from '../ui/GlassCard';
+import GlassCard from "../GlassCard";
 import { User, Grade } from '../../types';
 
 interface UserFormProps {
@@ -9,17 +9,26 @@ interface UserFormProps {
 export const UserForm: React.FC<UserFormProps> = ({ onSubmit }) => {
   const [name, setName] = useState('');
   const [grade, setGrade] = useState<Grade>(6);
+  const [error, setError] = useState<string>('');
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (name.trim()) {
-      onSubmit({ name, grade });
-    }
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+  
+    const newUser: User = {
+      id: Date.now().toString(), // Generating a temporary unique ID
+      name,
+      email: `${name.toLowerCase().replace(/\s/g, '')}@example.com`, // Placeholder email
+      grade,
+    };
+  
+    onSubmit(newUser);
   };
+  
 
   return (
-    <GlassCard className="w-full max-w-md mx-auto">
+    <GlassCard className="w-full max-w-md mx-auto p-6">
       <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Name Input */}
         <div>
           <label className="block text-sm font-medium text-gray-200 mb-2">
             Your Name
@@ -35,6 +44,8 @@ export const UserForm: React.FC<UserFormProps> = ({ onSubmit }) => {
             required
           />
         </div>
+
+        {/* Grade Select */}
         <div>
           <label className="block text-sm font-medium text-gray-200 mb-2">
             Select Grade
@@ -53,6 +64,11 @@ export const UserForm: React.FC<UserFormProps> = ({ onSubmit }) => {
             ))}
           </select>
         </div>
+
+        {/* Error Message */}
+        {error && <p className="text-red-500 text-sm">{error}</p>}
+
+        {/* Submit Button */}
         <button
           type="submit"
           className="w-full px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Question } from '../../types';
-import { GlassCard } from '../ui/GlassCard';
+import GlassCard from "../GlassCard";
+
+
 
 interface QuizCardProps {
   question: Question;

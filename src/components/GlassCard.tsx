@@ -1,18 +1,21 @@
+// src/components/GlassCard.tsx
+
 import React from 'react';
 
-interface GlassCardProps {
-  children: React.ReactNode;
-  className?: string;
+interface GlassCardProps extends React.HTMLProps<HTMLDivElement> {
+  // Other props for GlassCard, if necessary
 }
 
-export const GlassCard: React.FC<GlassCardProps> = ({ children, className = '' }) => {
+const GlassCard: React.FC<GlassCardProps> = ({ children, className, onClick, ...props }) => {
   return (
     <div
-      className={`relative backdrop-blur-md bg-white/10 rounded-2xl shadow-xl 
-      border border-white/20 p-6 overflow-hidden transition-all duration-500 
-      hover:shadow-2xl hover:bg-white/20 ${className}`}
+      className={`bg-white/10 rounded-xl shadow-lg p-6 backdrop-blur-lg ${className}`}
+      onClick={onClick}  // This will handle the click event
+      {...props}
     >
       {children}
     </div>
   );
 };
+
+export default GlassCard;

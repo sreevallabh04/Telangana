@@ -166,7 +166,7 @@ function App() {
 
   return (
     <div className={`${theme.isDark ? 'dark bg-slate-900' : 'bg-white'} min-h-screen text-white transition-colors duration-500`}>
-      <ThemeToggle isDark={theme.isDark} onToggle={toggleTheme} />
+
       {renderContent()}
     </div>
   );
